@@ -1,0 +1,2092 @@
+/* Importación de Google Fonts: Inter y JetBrains Mono para códigos */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Variables del Sistema de Diseño Institucional DIAN */
+:root {
+  --dian-navy: #0A2540;       /* Azul Institucional DIAN */
+  --dian-navy-light: #1A3E60; /* Azul claro para elementos secundarios */
+  --dian-gold: #10B981;       /* Verde oficial del logo DIAN */
+  --dian-gold-light: #E6F7F0; /* Verde muy suave para fondos */
+  --dian-accent: #0096C7;     /* Cian/Azul del logo DIAN */
+  
+  /* Estados */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+  
+  /* Fondos y Textos */
+  --bg-page: #F4F6F9;
+  --bg-card: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  
+  /* Bordes y Transiciones */
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset y Estilos Globales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding-bottom: 3rem;
+}
+
+/* Barra Oficial GOV.CO en la Parte Superior */
+.gov-co-bar {
+  background-color: var(--dian-navy); /* Color azul oscuro de fondo de la página */
+  padding: 0.5rem 2.2rem;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gov-co-logo-img {
+  height: 26px;
+  object-fit: contain;
+}
+
+/* Contenedor Principal */
+.app-container {
+  max-width: 1350px;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Banner de la DIAN Superior (Blanco Oficial) */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  color: var(--text-main);
+  padding: 1rem 2.2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  border-bottom: 4px solid var(--dian-accent); /* Línea cian del logotipo */
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-logo-factura {
+  height: 40px;
+  object-fit: contain;
+}
+
+.header-logo {
+  height: 38px;
+  object-fit: contain;
+}
+
+.header-divider {
+  width: 1px;
+  height: 32px;
+  background-color: var(--border-color);
+}
+
+/* Saludo de Operación Personalizado (Derecha) */
+.header-user-welcome {
+  text-align: right;
+}
+
+.header-user-welcome h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dian-navy);
+  letter-spacing: -0.3px;
+}
+
+.header-user-welcome h3 span {
+  color: var(--dian-gold); /* Verde DIAN */
+}
+
+.header-user-welcome p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+/* Panel de Diagnóstico y Estado (Estilo Barra Menú Oficial DIAN) */
+.system-status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: var(--dian-navy);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  box-shadow: var(--shadow-md);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #A0B3C6;
+}
+
+.status-pill strong {
+  color: white;
+}
+
+.status-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-indicator.online {
+  background-color: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+.status-indicator.warning {
+  background-color: var(--color-warning);
+  box-shadow: 0 0 8px var(--color-warning);
+}
+
+/* Acciones Rápidas (Carga de Datos) */
+.quick-actions-panel {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-quick-fill {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-quick-fill:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  color: white;
+}
+
+.btn-quick-fill.btn-small {
+  background-color: var(--dian-gold-light);
+  color: var(--color-success);
+  border: 1px solid var(--dian-gold);
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-quick-fill.btn-small:hover {
+  background-color: var(--dian-gold);
+  border-color: var(--dian-gold);
+  color: white;
+}
+
+/* Grilla del Dashboard Principal */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta Estilo DIAN (Cards) */
+.dian-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.dian-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 0.8rem;
+  color: var(--dian-navy);
+  position: relative;
+  border-bottom: none !important;
+}
+
+.dian-card-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--dian-gold); /* Verde DIAN */
+  border-radius: 2px;
+}
+
+.dian-card-title svg {
+  color: var(--dian-gold);
+  width: 24px;
+  height: 24px;
+}
+
+.dian-card-title h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.dian-card-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: -1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Formulario por Secciones */
+.form-grid-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.form-sub-section {
+  background-color: #FAFBFD;
+  border: 1px solid #EEF2F6;
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+}
+
+.section-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dian-navy-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #E2E8F0;
+}
+
+/* Inputs y Grilla de Inputs */
+.fields-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fields-row:last-child {
+  margin-bottom: 0;
+}
+
+/* FormArray e Ítems Dinámicos */
+.items-form-array {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-card-row {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.item-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px dashed #E2E8F0;
+}
+
+.item-number-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--dian-navy);
+  background-color: #F1F5F9;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.btn-add-item {
+  background-color: #10B981;
+  color: white;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-add-item:hover {
+  background-color: #059669;
+}
+
+.btn-remove-item {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-remove-item:hover {
+  background-color: #DC2626;
+  color: white;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.form-control {
+  font-family: inherit;
+  font-size: 0.88rem;
+  padding: 0.65rem 0.85rem;
+  background-color: white;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-control::placeholder {
+  color: #94A3B8;
+}
+
+.form-control:focus {
+  border-color: var(--dian-navy);
+  box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
+}
+
+/* Validación de campos */
+.form-group.has-error label {
+  color: var(--color-danger);
+}
+
+.form-group.has-error .form-control {
+  border-color: var(--color-danger);
+  background-color: #FFFDFD;
+}
+
+.form-group.has-error .form-control:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.field-error-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-danger);
+  margin-top: 0.1rem;
+}
+
+/* Sección de Botón de Envío */
+.form-submit-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.btn-submit-dian {
+  background: linear-gradient(135deg, var(--dian-navy) 0%, var(--dian-navy-light) 100%);
+  color: white;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2);
+  border-bottom: 2px solid var(--dian-gold);
+}
+
+.btn-submit-dian:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(10, 37, 64, 0.3);
+  background: var(--dian-navy-light);
+}
+
+.btn-submit-dian:active {
+  transform: translateY(0);
+}
+
+.btn-submit-dian:disabled {
+  background: #A0B3C6;
+  border-bottom-color: #94A3B8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Spinner animado */
+.loader-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spinLoader 0.75s linear infinite;
+}
+
+@keyframes spinLoader {
+  to { transform: rotate(360deg); }
+}
+
+/* --- PREVISUALIZACIÓN DE FACTURA ELECTRÓNICA (Live Invoice Paper) --- */
+.invoice-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.invoice-paper-wrapper {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Encabezado del visor de papel */
+.invoice-paper-header {
+  background-color: #FAFBFD;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.invoice-paper-header span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dian-navy-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-draft {
+  background-color: var(--dian-gold-light);
+  color: #8D7033;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+/* El Papel Físico de la Factura */
+.invoice-paper {
+  background-color: white;
+  padding: 1.8rem;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  position: relative;
+  min-height: 580px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+}
+
+/* Marca de Agua de Fondo */
+.invoice-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  text-transform: uppercase;
+  z-index: 1;
+  letter-spacing: 2px;
+  border: 4px dashed rgba(0, 0, 0, 0.04);
+  padding: 0.5rem 2rem;
+}
+
+.invoice-paper-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Diseño de Factura: Cabecera Oficial */
+.invoice-doc-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.6rem;
+}
+
+.invoice-doc-logo-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.invoice-doc-logo-area .emisor-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.invoice-doc-logo-area .emisor-nit {
+  font-weight: 700;
+}
+
+.invoice-doc-number-area {
+  text-align: right;
+}
+
+.invoice-title-block {
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.invoice-num-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-danger);
+  margin-top: 0.2rem;
+}
+
+/* Datos Emisor y Adquirente */
+.invoice-parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: #F8FAFC;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+}
+
+.party-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.party-title {
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.7rem;
+}
+
+/* Tabla de Ítems de la Factura */
+.invoice-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.invoice-items-table th {
+  background-color: #E2E8F0;
+  font-weight: 800;
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #CBD5E1;
+  font-size: 0.7rem;
+}
+
+.invoice-items-table td {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #CBD5E1;
+}
+
+.invoice-items-table tr:nth-child(even) td {
+  background-color: #FAFBFD;
+}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* Totales */
+.invoice-summary-section {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.invoice-legal-notes {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.invoice-totals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-totals-table td {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #E2E8F0;
+}
+
+.invoice-totals-table tr.total-row td {
+  font-weight: 800;
+  background-color: #FAFBFD;
+  font-size: 0.85rem;
+  border-top: 2px solid #000;
+}
+
+/* Sello Digital y QR (Abajo) */
+.invoice-security-footer {
+  border-top: 1px dashed #A0B3C6;
+  padding-top: 0.8rem;
+  margin-top: auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.invoice-qr-code {
+  width: 75px;
+  height: 75px;
+  border: 1px solid #CBD5E1;
+  padding: 2px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.qr-pixel {
+  background-color: #000;
+}
+.qr-pixel.off {
+  background-color: transparent;
+}
+
+.invoice-cufe-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.cufe-title {
+  font-weight: 800;
+  font-size: 0.65rem;
+  color: #000;
+}
+
+.cufe-hash {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+.signature-seal-text {
+  font-size: 0.6rem;
+  color: var(--color-success);
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+/* --- HISTORIAL DE TRANSMISIONES (Bottom Section) --- */
+.history-section {
+  margin-top: 1rem;
+}
+
+.history-card {
+  padding: 1.8rem 2.2rem;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.dian-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.dian-table th {
+  background-color: #FAFBFD;
+  color: var(--text-main);
+  font-weight: 700;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.dian-table td {
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.dian-table tr:hover td {
+  background-color: #FAFBFD;
+}
+
+.dian-table tr:last-child td {
+  border-bottom: none;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.text-truncate-cufe {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+/* Badges de Estado del Historial */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+}
+
+.badge-status.success {
+  background-color: #DEF7EC;
+  color: #03543F;
+}
+
+.badge-status.error {
+  background-color: #FDE8E8;
+  color: #9B1C1C;
+}
+
+.badge-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.badge-status.success .badge-status-dot { background-color: var(--color-success); }
+.badge-status.error .badge-status-dot { background-color: var(--color-danger); }
+
+/* Acciones del Historial */
+.history-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-action {
+  background: white;
+  border: 1px solid #CBD5E1;
+  padding: 0.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.btn-action:hover {
+  background-color: #F1F5F9;
+  border-color: #94A3B8;
+  color: var(--dian-navy);
+}
+
+.btn-action.btn-action-primary:hover {
+  background-color: var(--dian-gold-light);
+  border-color: var(--dian-gold);
+  color: #8D7033;
+}
+
+.btn-action svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Mensaje vacío de historial */
+.no-data-msg {
+  padding: 2.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.no-data-msg svg {
+  color: #CBD5E1;
+  width: 40px;
+  height: 40px;
+}
+
+/* Modales e Interfaz Overlay */
+/* ==========================================================================
+   ESTILOS DE MODALES Y OVERLAYS INSTITUCIONALES (DIAN) - 100% OPACOS Y LEGIBLES
+   ========================================================================== */
+
+.dian-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 37, 64, 0.75) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dian-modal,
+.dian-modal-card {
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #CBD5E1;
+  border-top: 6px solid var(--dian-navy);
+  animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+  z-index: 10001;
+}
+
+.dian-modal.modal-large,
+.dian-modal-card.graphic-modal-card {
+  max-width: 860px;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(15px); }
+  to { transform: translateY(0); }
+}
+
+.dian-modal-header {
+  padding: 1.2rem 1.8rem;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #FAFBFD !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.header-icon.icon-success {
+  background-color: #DEF7EC;
+  color: #10B981;
+  border: 2px solid #10B981;
+}
+
+.header-icon.icon-error {
+  background-color: #FDE8E8;
+  color: #EF4444;
+  border: 2px solid #EF4444;
+}
+
+.modal-title-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0A2540 !important;
+  margin: 0;
+}
+
+.sub-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.6rem;
+  border-radius: 20px;
+  margin-top: 0.2rem;
+}
+
+.sub-badge.badge-success {
+  background-color: #DEF7EC;
+  color: #03543F;
+}
+
+.sub-badge.badge-error {
+  background-color: #FDE8E8;
+  color: #9B1C1C;
+}
+
+.sub-badge.badge-info {
+  background-color: #E0F2FE;
+  color: #0369A1;
+}
+
+.close-x {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.close-x:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.dian-modal-body {
+  padding: 1.8rem;
+  background-color: #FFFFFF !important;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.user-message-card {
+  padding: 1.2rem;
+  border-radius: 12px;
+  border-left: 5px solid #10B981;
+  background-color: #F0FDF4 !important;
+}
+
+.user-message-card.card-error {
+  border-left-color: #EF4444;
+  background-color: #FEF2F2 !important;
+}
+
+.user-message-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #1E293B !important;
+  font-weight: 500;
+  margin: 0;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F8FAFC;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0A2540;
+}
+
+.response-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.btn-download-pdf {
+  background-color: #10B981;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-download-pdf:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.dian-modal-footer {
+  padding: 1rem 1.8rem;
+  background-color: #FAFBFD !important;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-modal-close {
+  background-color: #0A2540;
+  color: #FFFFFF !important;
+  border: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-modal-close:hover {
+  background-color: #1A3E60;
+}
+
+.graphic-modal-body {
+  padding: 1.5rem;
+  background-color: #E2E8F0 !important;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.graphic-sheet {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.gov-bar-small {
+  display: flex;
+  height: 4px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.gov-bar-small .col-yellow { flex: 1; background-color: #FCD116; }
+.gov-bar-small .col-blue { flex: 1; background-color: #003893; }
+.gov-bar-small .col-red { flex: 1; background-color: #CE1126; }
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #0A2540;
+  padding-bottom: 0.8rem;
+}
+
+.sheet-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.dian-logo-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0A2540;
+  letter-spacing: -1px;
+}
+
+.dian-sub {
+  font-size: 0.75rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.sheet-title {
+  text-align: right;
+}
+
+.sheet-title h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0A2540;
+  margin: 0;
+}
+
+.sheet-title .num-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: #DC2626;
+  font-weight: 800;
+  margin-top: 0.2rem;
+}
+
+.sheet-title .small-text {
+  font-size: 0.72rem;
+  color: #64748B;
+}
+
+.sheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.sheet-box {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+}
+
+.sheet-box h5 {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #0A2540;
+  text-transform: uppercase;
+  border-bottom: 1px solid #CBD5E1;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.sheet-table th {
+  background-color: #0A2540 !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border: 1px solid #0A2540;
+}
+
+.sheet-table td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #CBD5E1;
+  color: #1E293B !important;
+}
+
+.sheet-footer {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+  border-top: 1px dashed #CBD5E1;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cufe-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cufe-label {
+  font-size: 0.75rem;
+  color: #0F172A;
+  margin: 0;
+}
+
+.cufe-hash {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: #64748B;
+  word-break: break-all;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.signed-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #10B981;
+  margin-top: 0.3rem;
+}
+
+.totals-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #334155;
+  margin: 0;
+}
+
+.grand-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0A2540;
+  background-color: #F8FAFC;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin: 0;
+}
+
+/* Vista del XML (Código Terminal) */
+.xml-viewer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.xml-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.xml-tab-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.xml-tab-btn.active {
+  color: var(--dian-navy);
+  border-bottom-color: var(--dian-navy);
+}
+
+.xml-code-block {
+  background-color: #0A0F1D;
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  overflow-x: auto;
+  max-height: 400px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.xml-code-block pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #E2E8F0;
+  margin: 0;
+}
+
+/* Colores de sintaxis XML */
+.xml-tag { color: #F472B6; }      /* Rosado/Púrpura para tags */
+.xml-attr { color: #38BDF8; }     /* Celeste para atributos */
+.xml-val { color: #34D399; }      /* Verde para valores string */
+.xml-text { color: #E2E8F0; }     /* Blanco para textos */
+.xml-comment { color: #64748B; }  /* Gris para comentarios */
+
+/* Modal de Respuesta Detallado */
+.response-feedback-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.feedback-badge-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+.feedback-badge-icon.success {
+  background-color: #DEF7EC;
+  color: var(--color-success);
+  border: 2px solid var(--color-success);
+}
+
+.feedback-badge-icon.error {
+  background-color: #FDE8E8;
+  color: var(--color-danger);
+  border: 2px solid var(--color-danger);
+}
+
+.feedback-title {
+  color: var(--dian-navy);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.feedback-msg {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 90%;
+  line-height: 1.5;
+}
+
+.feedback-details-table {
+  width: 100%;
+  background-color: #FAFBFD;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-align: left;
+}
+
+.feedback-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.feedback-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.feedback-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  word-break: break-all;
+}
+
+.feedback-val.success-path {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ESTILOS DE ACCESIBILIDAD Y PANEL FLOTANTE
+   ========================================================================== */
+
+.accessibility-wrapper {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  transform: translateX(300px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accessibility-wrapper.panel-open {
+  transform: translateX(0);
+}
+
+.accessibility-trigger {
+  background-color: var(--dian-navy);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  padding: 0.8rem;
+  cursor: pointer;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  outline: none;
+  transition: background-color var(--transition-fast);
+}
+
+.accessibility-trigger:hover {
+  background-color: var(--dian-accent);
+}
+
+.accessibility-panel {
+  width: 300px;
+  background-color: #FFFFFF;
+  border-left: 1px solid var(--border-color);
+  box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 0 var(--radius-md);
+  overflow: hidden;
+}
+
+.panel-header {
+  background-color: var(--dian-navy);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.btn-close-panel {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.panel-body {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background-color: #FFFFFF;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.setting-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.setting-options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.btn-setting-opt {
+  background-color: #F8FAFC;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.btn-setting-opt:hover {
+  background-color: #F1F5F9;
+}
+
+.btn-setting-opt.active {
+  background-color: var(--dian-navy);
+  color: white;
+  border-color: var(--dian-navy);
+}
+
+.btn-setting-opt.contrast-high.active {
+  background-color: #000000;
+  color: #FFFF00;
+  border-color: #FFFF00;
+}
+
+.setting-toggle-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.2rem 0;
+  user-select: none;
+  color: var(--text-main);
+}
+
+.setting-toggle-item input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--dian-accent);
+  cursor: pointer;
+}
+
+.panel-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background-color: #F8FAFC;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-reset-accessibility {
+  width: 100%;
+  background-color: transparent;
+  border: 1px dashed var(--text-muted);
+  color: var(--text-muted);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-reset-accessibility:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
+  border-color: var(--text-main);
+}
+
+/* ==========================================================================
+   WIDGET FLOTANTE Y PANEL DE ACCESIBILIDAD (ESTILO CIRCULAR ELEGANTE Y ARMÓNICO)
+   ========================================================================== */
+
+.accessibility-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 99999;
+  font-family: inherit;
+}
+
+.accessibility-toggle-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0A2540 0%, #173859 100%) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #10B981;
+  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accessibility-toggle-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 12px 28px rgba(10, 37, 64, 0.38), 0 0 15px rgba(16, 185, 129, 0.45);
+  background: linear-gradient(135deg, #0F2D4A 0%, #1D4ED8 100%) !important;
+}
+
+.accessibility-badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 13px;
+  height: 13px;
+  background-color: #10B981;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+.accessibility-panel {
+  position: absolute;
+  bottom: 68px;
+  right: 0;
+  width: 340px;
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border-radius: var(--radius-lg);
+  border: 1px solid #CBD5E1;
+  border-top: 5px solid var(--dian-navy);
+  box-shadow: 0 20px 40px -10px rgba(10, 37, 64, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: accSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100000;
+}
+
+@keyframes accSlideUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.acc-header {
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #FAFBFD !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acc-header h3 {
+  color: var(--dian-navy) !important;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.acc-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.acc-close-btn:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.acc-body {
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-height: 58vh;
+  overflow-y: auto;
+  background-color: #FFFFFF !important;
+}
+
+.acc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.acc-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #64748B !important;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.acc-btn-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.acc-btn-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.acc-btn-grid button {
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  color: #1E293B !important;
+  padding: 0.5rem 0.3rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.acc-btn-grid button:hover {
+  border-color: var(--dian-navy);
+  background-color: #F1F5F9;
+}
+
+.acc-btn-grid button.active {
+  background-color: var(--dian-navy) !important;
+  color: #FFFFFF !important;
+  border-color: var(--dian-navy) !important;
+}
+
+.acc-switches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.acc-switch-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FAFBFD !important;
+  border: 1px solid #E2E8F0;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1E293B !important;
+}
+
+.acc-switch-card:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1;
+}
+
+.acc-switch-card.is-on {
+  background-color: #F0FDF4 !important;
+  border-color: #86EFAC;
+  color: #065F46 !important;
+}
+
+.switch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background-color: #E2E8F0;
+  color: #64748B;
+  transition: all 0.2s ease;
+}
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #94A3B8;
+}
+
+.pill-text {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.acc-switch-card.is-on .switch-pill {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+}
+
+.acc-switch-card.is-on .pill-dot {
+  background-color: #FFFFFF;
+}
+
+.acc-footer {
+  padding: 0.9rem 1.5rem;
+  background-color: #FAFBFD !important;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: center;
+}
+
+.acc-reset-btn {
+  background-color: #FEF2F2;
+  color: #EF4444 !important;
+  border: 1px solid #FCA5A5;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.acc-reset-btn:hover {
+  background-color: #EF4444 !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   ESCALADO PROPORCIONAL Y SUTIL DE FUENTES (SIN DISTORSIÓN)
+   ========================================================================== */
+
+/* 1. Alto Contraste */
+body.accessibility-high-contrast {
+  --bg-page: #121212 !important;
+  --bg-card: #000000 !important;
+  --border-color: #FFFF00 !important;
+  --text-main: #FFFFFF !important;
+  --text-muted: #FFFF00 !important;
+  --dian-navy: #000000 !important;
+  --dian-accent: #FFFF00 !important;
+  --dian-gold: #FFFF00 !important;
+  background-color: #121212 !important;
+  color: #FFFFFF !important;
+}
+
+body.accessibility-high-contrast .dian-card,
+body.accessibility-high-contrast .main-header,
+body.accessibility-high-contrast .gov-co-bar,
+body.accessibility-high-contrast .invoice-paper,
+body.accessibility-high-contrast .feedback-details-table,
+body.accessibility-high-contrast .dian-table,
+body.accessibility-high-contrast .dian-table th,
+body.accessibility-high-contrast .dian-table td,
+body.accessibility-high-contrast .dian-modal,
+body.accessibility-high-contrast .accessibility-panel,
+body.accessibility-high-contrast .panel-body,
+body.accessibility-high-contrast .panel-footer,
+body.accessibility-high-contrast .invoice-preview-container,
+body.accessibility-high-contrast .party-box,
+body.accessibility-high-contrast .invoice-items-table th,
+body.accessibility-high-contrast .invoice-items-table td,
+body.accessibility-high-contrast .invoice-totals-table td {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+body.accessibility-high-contrast input,
+body.accessibility-high-contrast select,
+body.accessibility-high-contrast textarea,
+body.accessibility-high-contrast button,
+body.accessibility-high-contrast a,
+body.accessibility-high-contrast .btn-action,
+body.accessibility-high-contrast .btn-close-accent {
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+body.accessibility-high-contrast .btn-submit-dian,
+body.accessibility-high-contrast .btn-quick-fill,
+body.accessibility-high-contrast .accessibility-toggle-btn {
+  background-color: #FFFF00 !important;
+  color: #000000 !important;
+  border-color: #FFFF00 !important;
+  font-weight: 800 !important;
+}
+
+/* 2. Monocromático */
+body.accessibility-grayscale .app-container,
+body.accessibility-grayscale .main-header,
+body.accessibility-grayscale .gov-co-bar,
+body.accessibility-grayscale .dian-modal-backdrop {
+  filter: grayscale(100%) !important;
+}
+
+/* 3. Escalado Suave y Proporcional (MEDIANO A+ Y GRANDE A++) */
+body.font-size-medium {
+  font-size: 106% !important;
+}
+
+body.font-size-medium h2,
+body.font-size-medium .dian-card-title h2 {
+  font-size: 1.45rem !important;
+}
+
+body.font-size-medium .form-control,
+body.font-size-medium label,
+body.font-size-medium p,
+body.font-size-medium td,
+body.font-size-medium th,
+body.font-size-medium button,
+body.font-size-medium input,
+body.font-size-medium select {
+  font-size: 0.93rem !important;
+}
+
+body.font-size-large {
+  font-size: 114% !important;
+}
+
+body.font-size-large h2,
+body.font-size-large .dian-card-title h2 {
+  font-size: 1.6rem !important;
+}
+
+body.font-size-large .form-control,
+body.font-size-large label,
+body.font-size-large p,
+body.font-size-large td,
+body.font-size-large th,
+body.font-size-large button,
+body.font-size-large input,
+body.font-size-large select {
+  font-size: 1.02rem !important;
+}
+
+/* 4. Enlaces Subrayados */
+body.underlined-links a,
+body.underlined-links button:not(.acc-close-btn),
+body.underlined-links [type="submit"] {
+  text-decoration: underline !important;
+}
+
+/* 5. Espaciado Amplio */
+body.text-spacing p,
+body.text-spacing span,
+body.text-spacing label,
+body.text-spacing td,
+body.text-spacing th,
+body.text-spacing input,
+body.text-spacing select,
+body.text-spacing button,
+body.text-spacing strong {
+  line-height: 1.7 !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.08em !important;
+}
+
+/* 6. Foco mejorado */
+body.enhanced-focus *:focus,
+body.enhanced-focus input:focus,
+body.enhanced-focus select:focus,
+body.enhanced-focus button:focus {
+  outline: 3px dashed #0096C7 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 10px #0096C7 !important;
+}

@@ -1,0 +1,447 @@
+<!-- Barra Oficial GOV.CO -->
+<div class="gov-co-bar">
+  <img src="/images/logo-gov-co.png" alt="GOV.CO" class="gov-co-logo-img">
+</div>
+
+<!-- Menú Flotante de Accesibilidad Universal -->
+<app-accessibility-menu></app-accessibility-menu>
+
+<div class="app-container">
+  
+  <!-- Encabezado Institucional DIAN -->
+  <header class="main-header">
+    <div class="header-brand">
+      <img src="/images/logo-factura-electronica.png" alt="Sistema de Factura Electrónica" class="header-logo-factura">
+      <div class="header-divider"></div>
+      <img src="/images/logo-dian.png" alt="DIAN Logo" class="header-logo">
+    </div>
+    <div class="header-user-welcome">
+      <h3>{{ welcomeMessage }}, <span>{{ operatorName }}</span></h3>
+      <p>Sesión activa • Operador de Facturación</p>
+    </div>
+  </header>
+
+  <!-- Dashboard Principal (Grilla de 2 Columnas) -->
+  <div class="dashboard-grid">
+    
+    <!-- Columna Izquierda: Formulario de Emisión -->
+    <div class="dian-card">
+      <div class="dian-card-title">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h2>Nueva Factura Electrónica</h2>
+      </div>
+      <p class="dian-card-subtitle">Ingrese la información para generar y reportar la factura de venta.</p>
+
+      <form [formGroup]="facturaForm" (ngSubmit)="onSubmit()" class="form-grid-sections">
+        
+        <!-- Sección 1: Datos del Vendedor (Emisor) -->
+        <section class="form-sub-section">
+          <div class="section-label">
+            <span>1. Datos del Emisor (Vendedor)</span>
+          </div>
+          
+          <div class="fields-row">
+            <div class="form-group" [class.has-error]="isFieldInvalid('identificacionVendedor')">
+              <label for="identificacionVendedor">NIT del Vendedor *</label>
+              <input type="text" id="identificacionVendedor" formControlName="identificacionVendedor" class="form-control" placeholder="Ej. 900.123.456-1">
+              @if (isFieldInvalid('identificacionVendedor')) {
+                <span class="field-error-text">NIT requerido (formato: NNN.NNN.NNN-N).</span>
+              }
+            </div>
+            
+            <div class="form-group" [class.has-error]="isFieldInvalid('nombreVendedor')">
+              <label for="nombreVendedor">Razón Social *</label>
+              <input type="text" id="nombreVendedor" formControlName="nombreVendedor" class="form-control" placeholder="Nombre de la empresa">
+              @if (isFieldInvalid('nombreVendedor')) {
+                <span class="field-error-text">Campo obligatorio.</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-group" [class.has-error]="isFieldInvalid('actividadProductiva')" style="margin-bottom: 1rem;">
+            <label for="actividadProductiva">Actividad Económica *</label>
+            <input type="text" id="actividadProductiva" formControlName="actividadProductiva" class="form-control" placeholder="Ej. 6201 - Desarrollo de software">
+            @if (isFieldInvalid('actividadProductiva')) {
+              <span class="field-error-text">Campo obligatorio.</span>
+            }
+          </div>
+
+          <div class="fields-row">
+            <div class="form-group" [class.has-error]="isFieldInvalid('telefonoVendedor')">
+              <label for="telefonoVendedor">Teléfono de Contacto *</label>
+              <input type="text" id="telefonoVendedor" formControlName="telefonoVendedor" class="form-control" placeholder="Ej. 6013000000">
+              @if (isFieldInvalid('telefonoVendedor')) {
+                <span class="field-error-text">Requerido (7 a 10 dígitos).</span>
+              }
+            </div>
+            
+            <div class="form-group" [class.has-error]="isFieldInvalid('correoVendedor')">
+              <label for="correoVendedor">Correo de Contacto *</label>
+              <input type="email" id="correoVendedor" formControlName="correoVendedor" class="form-control" placeholder="emisor@dominio.co">
+              @if (isFieldInvalid('correoVendedor')) {
+                <span class="field-error-text">Formato de correo inválido.</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 2: Datos del Cliente (Comprador) -->
+        <section class="form-sub-section">
+          <div class="section-label">
+            <span>2. Datos del Cliente (Comprador)</span>
+          </div>
+
+          <div class="fields-row">
+            <div class="form-group" [class.has-error]="isFieldInvalid('identificacionCliente')">
+              <label for="identificacionCliente">C.C. o NIT del Cliente *</label>
+              <input type="text" id="identificacionCliente" formControlName="identificacionCliente" class="form-control" placeholder="C.C. o NIT">
+              @if (isFieldInvalid('identificacionCliente')) {
+                <span class="field-error-text">Campo obligatorio.</span>
+              }
+            </div>
+            
+            <div class="form-group" [class.has-error]="isFieldInvalid('nombreCliente')">
+              <label for="nombreCliente">Nombre / Razón Social *</label>
+              <input type="text" id="nombreCliente" formControlName="nombreCliente" class="form-control" placeholder="Ej. Juan Pérez">
+              @if (isFieldInvalid('nombreCliente')) {
+                <span class="field-error-text">Campo obligatorio.</span>
+              }
+            </div>
+          </div>
+
+          <div class="fields-row">
+            <div class="form-group" [class.has-error]="isFieldInvalid('telefonoCliente')">
+              <label for="telefonoCliente">Teléfono *</label>
+              <input type="text" id="telefonoCliente" formControlName="telefonoCliente" class="form-control" placeholder="Ej. 3101234567">
+              @if (isFieldInvalid('telefonoCliente')) {
+                <span class="field-error-text">Requerido (7 a 10 dígitos).</span>
+              }
+            </div>
+            
+            <div class="form-group" [class.has-error]="isFieldInvalid('correoCliente')">
+              <label for="correoCliente">Correo Electrónico de Notificación *</label>
+              <input type="email" id="correoCliente" formControlName="correoCliente" class="form-control" placeholder="cliente@correo.com">
+              @if (isFieldInvalid('correoCliente')) {
+                <span class="field-error-text">Formato de correo inválido.</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 3: Detalle de Bienes y/o Servicios (FormArray Dinámico) -->
+        <section class="form-sub-section">
+          <div class="section-label" style="justify-content: space-between;">
+            <span>3. Detalle de Bienes o Servicios ({{ items.length }})</span>
+            <button type="button" class="btn-add-item" (click)="addItem()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agregar Producto / Servicio
+            </button>
+          </div>
+
+          <div formArrayName="items" class="items-form-array">
+            <div *ngFor="let itemGroup of items.controls; let i = index" [formGroupName]="i" class="item-card-row">
+              <div class="item-row-header">
+                <span class="item-number-badge">Ítem #{{ i + 1 }}</span>
+                <button type="button" class="btn-remove-item" *ngIf="items.length > 1" (click)="removeItem(i)" title="Eliminar este ítem">
+                  &times; Eliminar
+                </button>
+              </div>
+
+              <div class="fields-row">
+                <div class="form-group" [class.has-error]="isItemFieldInvalid(i, 'productoVendido')" style="grid-column: span 2;">
+                  <label>Descripción del Producto o Servicio *</label>
+                  <input type="text" formControlName="productoVendido" class="form-control" placeholder="Ej. Servicio de consultoría o producto">
+                  <span class="field-error-text" *ngIf="isItemFieldInvalid(i, 'productoVendido')">Campo obligatorio.</span>
+                </div>
+                
+                <div class="form-group" [class.has-error]="isItemFieldInvalid(i, 'codigoProducto')">
+                  <label>Código Interno *</label>
+                  <input type="text" formControlName="codigoProducto" class="form-control" placeholder="Ej. COD-001">
+                  <span class="field-error-text" *ngIf="isItemFieldInvalid(i, 'codigoProducto')">Requerido.</span>
+                </div>
+              </div>
+
+              <div class="fields-row">
+                <div class="form-group" [class.has-error]="isItemFieldInvalid(i, 'precioUnitario')">
+                  <label>Precio Unitario ($ COP) *</label>
+                  <input type="number" formControlName="precioUnitario" class="form-control" placeholder="0" min="0.01" step="0.01">
+                  <span class="field-error-text" *ngIf="isItemFieldInvalid(i, 'precioUnitario')">Mayor a $0.</span>
+                </div>
+                
+                <div class="form-group" [class.has-error]="isItemFieldInvalid(i, 'cantidadVendida')">
+                  <label>Cantidad *</label>
+                  <input type="number" formControlName="cantidadVendida" class="form-control" placeholder="1" min="1">
+                  <span class="field-error-text" *ngIf="isItemFieldInvalid(i, 'cantidadVendida')">Mínimo 1.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Botón de Envío -->
+        <div class="form-submit-panel">
+          <button type="submit" [disabled]="isLoading" class="btn-submit-dian">
+            @if (isLoading) {
+              <div class="loader-spinner"></div>
+              <span>Generando y reportando factura...</span>
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.26.41a.5.5 0 0 0 .887-.082l.18-.452L15.963.687zM5.18 8.86 1.13 6.29l11.885-4.754L5.18 8.86zm3.96 3.96 4.754-11.885L9.14 12.82z"/>
+              </svg>
+              <span>Firmar y Enviar Factura a la DIAN</span>
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Columna Derecha: Representación Gráfica Interactiva en Vivo -->
+    <div class="invoice-preview-container">
+      
+      <div class="invoice-paper-wrapper">
+        <!-- Barra de estado del papel -->
+        <div class="invoice-paper-header">
+          <span>Borrador de Factura Electrónica</span>
+          <span class="badge-draft">Pre-Visualización</span>
+        </div>
+
+        <div class="invoice-paper">
+          <!-- Marca de agua -->
+          <div class="invoice-watermark">Sin Valor Fiscal</div>
+
+          <div class="invoice-paper-content">
+            
+            <!-- Encabezado Factura -->
+            <div class="invoice-doc-header">
+              <div class="invoice-doc-logo-area">
+                <span class="emisor-name">{{ formVal.nombreVendedor || '(Razón Social del Emisor)' }}</span>
+                <span class="emisor-nit">NIT: {{ formVal.identificacionVendedor || '(NIT del Vendedor)' }}</span>
+                <span>Actividad: {{ formVal.actividadProductiva || '(Código Actividad)' }}</span>
+                <span>Tel: {{ formVal.telefonoVendedor || '(Teléfono)' }}</span>
+                <span>Correo: {{ formVal.correoVendedor || '(Correo)' }}</span>
+              </div>
+              <div class="invoice-doc-number-area">
+                <div class="invoice-title-block">Factura Electrónica de Venta</div>
+                <div class="invoice-num-block">FE-PREVISTA</div>
+                <div style="font-size: 0.65rem; margin-top: 0.2rem; color: var(--text-muted);">
+                  Fecha Emisión: (Al transmitir)
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos Vendedor y Cliente -->
+            <div class="invoice-parties">
+              <div class="party-box">
+                <span class="party-title">Facturador Electrónico</span>
+                <strong>{{ formVal.nombreVendedor || '(Emisor)' }}</strong>
+                <span>NIT: {{ formVal.identificacionVendedor }}</span>
+                <span>E-mail: {{ formVal.correoVendedor }}</span>
+              </div>
+              <div class="party-box">
+                <span class="party-title">Adquirente</span>
+                <strong>{{ formVal.nombreCliente || '(Nombre del Cliente)' }}</strong>
+                <span>Identificación: {{ formVal.identificacionCliente || '(Identificación)' }}</span>
+                <span>Tel: {{ formVal.telefonoCliente }}</span>
+                <span>E-mail: {{ formVal.correoCliente }}</span>
+              </div>
+            </div>
+
+            <!-- Tabla de Ítems Dinámica -->
+            <table class="invoice-items-table">
+              <thead>
+                <tr>
+                  <th style="width: 15%;">Código</th>
+                  <th style="width: 45%;">Descripción del Producto / Servicio</th>
+                  <th class="text-center" style="width: 10%;">Cant.</th>
+                  <th class="text-right" style="width: 15%;">Precio Unitario</th>
+                  <th class="text-right" style="width: 15%;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items.value">
+                  <td class="font-mono">{{ item.codigoProducto || 'N/A' }}</td>
+                  <td>{{ item.productoVendido || 'Descripción del bien o servicio...' }}</td>
+                  <td class="text-center font-mono">{{ item.cantidadVendida || 1 }}</td>
+                  <td class="text-right font-mono">{{ formatCOP(item.precioUnitario || 0) }}</td>
+                  <td class="text-right font-mono">{{ formatCOP((item.precioUnitario || 0) * (item.cantidadVendida || 0)) }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Resumen de Totales y Notas -->
+            <div class="invoice-summary-section">
+              <div class="invoice-legal-notes">
+                <strong>Notas Legales:</strong>
+                <span>Esta es una representación gráfica de prueba diseñada bajo el anexo técnico de factura electrónica 2.1 de la DIAN.</span>
+                <span>La firma digital del documento se realiza mediante el certificado de pruebas DIAN.</span>
+              </div>
+              <div>
+                <table class="invoice-totals-table">
+                  <tbody>
+                    <tr>
+                      <td>Subtotal:</td>
+                      <td class="text-right font-mono">{{ formatCOP(subtotalPreview) }}</td>
+                    </tr>
+                    <tr>
+                      <td>IVA (19%):</td>
+                      <td class="text-right font-mono">{{ formatCOP(ivaPreview) }}</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td>Total Venta:</td>
+                      <td class="text-right font-mono">{{ formatCOP(totalPreview) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Firma y CUFE -->
+            <div class="invoice-security-footer">
+              <div class="invoice-qr-code">
+                <!-- Simulación gráfica de código QR de la DIAN -->
+                <div class="qr-placeholder-grid">
+                  <div class="qr-pixel"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel"></div>
+                  <div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div>
+                  <div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div>
+                  <div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div>
+                  <div class="qr-pixel"></div><div class="qr-pixel"></div><div class="qr-pixel off"></div><div class="qr-pixel"></div><div class="qr-pixel"></div>
+                </div>
+              </div>
+              <div class="invoice-cufe-block">
+                <span class="cufe-title">Código Único de Factura Electrónica (CUFE):</span>
+                <span class="cufe-hash">(Se generará automáticamente al firmar digitalmente y reportar el documento)</span>
+                <span class="signature-seal-text">✓ DOCUMENTO FIRMADO DIGITALMENTE</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de Carga Rápida en la parte inferior del borrador -->
+      <div style="display: flex; justify-content: center; margin-top: 1rem;">
+        <button type="button" class="btn-quick-fill btn-small" (click)="loadMockData()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+            <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm1 .5v1h6V3H5zm.5 4.5A.5.5 0 0 0 5 8v5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5h-5zM6 9h4v4H6V9z"/>
+          </svg>
+          Cargar Datos de Ejemplo
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Historial de Documentos Emitidos (Sección Inferior) -->
+  <div class="dian-card history-section">
+    <div class="dian-card-title" style="justify-content: space-between; border-bottom-color: var(--border-color);">
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <h2>Historial de Facturas Reportadas</h2>
+      </div>
+      @if (invoiceHistory.length > 0) {
+        <button type="button" class="btn-quick-fill" style="background-color: #FEE2E2; color: #991B1B; border-color: #FCA5A5;" (click)="clearHistory()">
+          Limpiar Historial
+        </button>
+      }
+    </div>
+    <p class="dian-card-subtitle" style="margin-bottom: 0.2rem;">Consulte el histórico de facturas emitidas y descargue la documentación oficial.</p>
+
+    <div class="table-responsive">
+      @if (invoiceHistory.length === 0) {
+        <div class="no-data-msg">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+          <div><strong>No se han registrado facturas emitidas.</strong></div>
+          <div style="font-size: 0.8rem;">Diligencie el formulario de emisión y presione "Firmar y Enviar Factura a la DIAN".</div>
+        </div>
+      } @else {
+        <table class="dian-table">
+          <thead>
+            <tr>
+              <th>Factura No.</th>
+              <th>Fecha/Hora</th>
+              <th>Cliente (Comprador)</th>
+              <th class="text-right">Total Facturado</th>
+              <th>Código Único de Seguridad (CUFE)</th>
+              <th>Estado</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (inv of invoiceHistory; track inv.numero) {
+              <tr>
+                <td class="font-mono" style="font-weight: 700;">{{ inv.numero }}</td>
+                <td>{{ inv.fecha }}</td>
+                <td>
+                  <strong>{{ inv.cliente }}</strong><br/>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">NIT/CC: {{ inv.nitCliente }}</span>
+                </td>
+                <td class="text-right font-mono" style="font-weight: 700; color: var(--dian-navy);">
+                  {{ formatCOP(inv.total) }}
+                </td>
+                <td>
+                  <span class="font-mono text-truncate-cufe" title="{{ inv.cufe }}">{{ inv.cufe }}</span>
+                </td>
+                <td>
+                  <span class="badge-status success">
+                    <span class="badge-status-dot"></span>
+                    Aprobada por la DIAN
+                  </span>
+                </td>
+                <td class="text-center">
+                  <div class="history-actions" style="justify-content: center;">
+                    <!-- Botón Representación Gráfica -->
+                    <button class="btn-action btn-action-primary" title="Ver Representación Gráfica" (click)="openGraphicModal(inv)">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </button>
+                    <!-- Botón PDF Descargable con diálogo Guardar Como -->
+                    @if (inv.pdfUrl) {
+                      <a [href]="getDownloadUrl(inv.pdfUrl)" target="_blank" class="btn-action" title="Guardar PDF en su equipo" download="Factura_DIAN.pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </a>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </div>
+
+</div>
+
+<!-- --- SUBCOMPONENTES INDEPENDIENTES REFRACTORIZADOS --- -->
+<app-graphic-modal
+  [visible]="graphicModalVisible"
+  [invoice]="activeGraphicInvoice"
+  [downloadUrlGetter]="getDownloadUrl.bind(this)"
+  (closed)="closeGraphicModal()">
+</app-graphic-modal>
+
+<app-dian-modal
+  [visible]="modalVisible"
+  [isSuccess]="modalSuccess"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [details]="modalDetails"
+  [downloadUrlGetter]="getDownloadUrl.bind(this)"
+  (closed)="closeModal()">
+</app-dian-modal>
+
+<app-accessibility-menu></app-accessibility-menu>
+

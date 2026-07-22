@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.dian.com/factura"
+           xmlns:tns="http://www.dian.com/factura"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="ItemFactura">
+        <xs:sequence>
+            <xs:element name="codigoProducto" type="xs:string" minOccurs="1"/>
+            <xs:element name="productoVendido" type="xs:string" minOccurs="1"/>
+            <xs:element name="cantidadVendida" type="tns:PositiveInt" minOccurs="1"/>
+            <xs:element name="precioUnitario" type="tns:PositiveDouble" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="EnviarFacturaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Datos del Vendedor -->
+                <xs:element name="IdentificacionVendedor" type="xs:string" minOccurs="1"/>
+                <xs:element name="nombreVendedor" type="xs:string" minOccurs="1"/>
+                <xs:element name="actividadProductiva" type="xs:string" minOccurs="1"/>
+                <xs:element name="telefonoVendedor" type="xs:string" minOccurs="1"/>
+                <xs:element name="correoVendedor" type="tns:EmailType" minOccurs="1"/>
+                
+                <!-- Lista de Bienes o Servicios (Mínimo 1) -->
+                <xs:element name="items" type="tns:ItemFactura" minOccurs="1" maxOccurs="unbounded"/>
+                
+                <!-- Datos del Cliente -->
+                <xs:element name="nombreCliente" type="xs:string" minOccurs="1"/>
+                <xs:element name="identificacionCliente" type="xs:string" minOccurs="1"/>
+                <xs:element name="telefonoCliente" type="xs:string" minOccurs="1"/>
+                <xs:element name="correoCliente" type="tns:EmailType" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="EnviarFacturaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="codigo" type="xs:string"/>
+                <xs:element name="mensaje" type="xs:string"/>
+                <xs:element name="pdfUrl" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Restricciones de Validación del Lado del Esquema SOAP -->
+    <xs:simpleType name="PositiveDouble">
+        <xs:restriction base="xs:double">
+            <xs:minExclusive value="0.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PositiveInt">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EmailType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
