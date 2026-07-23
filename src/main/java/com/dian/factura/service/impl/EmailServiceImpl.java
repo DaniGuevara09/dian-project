@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender mailSender;
     private final String senderEmail;
 
-    public EmailServiceImpl(JavaMailSender mailSender, @Value("${spring.mail.username:no-reply@dian.gov.co}") String senderEmail) {
+    public EmailServiceImpl(JavaMailSender mailSender, @Value("${spring.mail.username:lauradanielaguevara09@gmail.com}") String senderEmail) {
         this.mailSender = mailSender;
         this.senderEmail = senderEmail;
     }
@@ -26,26 +26,37 @@ public class EmailServiceImpl implements EmailService {
     @Override
     @Async
     public void enviarFacturaEmail(String correoDestinatario, String nombreCliente, File pdfAdjunto) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        
-        helper.setFrom(senderEmail);
-        helper.setTo(correoDestinatario);
-        helper.setSubject("DIAN - Confirmación de Envío de Factura Electrónica");
-        
-        String cuerpoHtml = "<h3>Estimado(a) " + nombreCliente + ",</h3>"
-                + "<p>Nos complace informarle que se ha generado y transmitido exitosamente su factura electrónica de venta a la DIAN.</p>"
-                + "<p>Adjunto a este correo encontrará la representación gráfica oficial (PDF) de su factura.</p>"
-                + "<br/>"
-                + "<p><i>Este correo ha sido generado de manera automática, por favor no responda a este mensaje.</i></p>"
-                + "<hr/>"
-                + "<p><b>Dirección de Impuestos y Aduanas Nacionales - DIAN</b></p>";
-                
-        helper.setText(cuerpoHtml, true);
-        
-        FileSystemResource file = new FileSystemResource(pdfAdjunto);
-        helper.addAttachment(pdfAdjunto.getName(), file);
-        
-        mailSender.send(message);
+        try {
+            System.out.println("Enviando correo de factura a: " + correoDestinatario);
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            
+            helper.setFrom(senderEmail);
+            helper.setTo(correoDestinatario);
+            helper.setSubject("DIAN - Confirmación de Envío de Factura Electrónica");
+            
+            String cuerpoHtml = "<h3>Estimado(a) " + nombreCliente + ",</h3>"
+                    + "<p>Nos complace informarle que se ha generado y transmitido exitosamente su factura electrónica de venta a la DIAN.</p>"
+                    + "<p>Adjunto a este correo encontrará la representación gráfica oficial (PDF) de su factura.</p>"
+                    + "<br/>"
+                    + "<p><i>Este correo ha sido generado de manera automática, por favor no responda a este mensaje.</i></p>"
+                    + "<hr/>"
+                    + "<p><b>Dirección de Impuestos y Aduanas Nacionales - DIAN</b></p>";
+                    
+            helper.setText(cuerpoHtml, true);
+            
+            if (pdfAdjunto != null && pdfAdjunto.exists()) {
+                FileSystemResource file = new FileSystemResource(pdfAdjunto);
+                helper.addAttachment(pdfAdjunto.getName(), file);
+            }
+            
+            mailSender.send(message);
+            System.out.println("Correo enviado exitosamente a: " + correoDestinatario);
+            
+        } catch (Exception e) {
+            System.err.println("Error al enviar correo electrónico: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
