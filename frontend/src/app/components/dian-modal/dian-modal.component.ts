@@ -79,6 +79,6 @@ export class DianModalComponent {
     if (this.downloadUrlGetter) {
       return this.downloadUrlGetter(path);
     }
-    return `http://localhost:8080/api/factura/download?path=${encodeURIComponent(path)}`;
+    return `https://dian-project-vvq8.onrender.com/api/factura/download?path=${encodeURIComponent(path)}`;
   }
 }
