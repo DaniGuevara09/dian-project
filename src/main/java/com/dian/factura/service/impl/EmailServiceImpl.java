@@ -1,12 +1,12 @@
 package com.dian.factura.service.impl;
 
 import com.dian.factura.service.EmailService;
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,11 +23,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void enviarFacturaEmail(String correoDestinatario, String nombreCliente, File pdfAdjunto) throws MessagingException {
+    @Async
+    public void enviarFacturaEmail(String correoDestinatario, String nombreCliente, File pdfAdjunto) {
         try {
-            System.out.println(">>> INICIANDO ENVÍO DE CORREO SMTP");
+            System.out.println(">>> INICIANDO ENVÍO DE CORREO SMTP EN SEGUNDO PLANO...");
             System.out.println("Destinatario: " + correoDestinatario);
-            System.out.println("Remitente: " + senderEmail);
             
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -55,9 +55,7 @@ public class EmailServiceImpl implements EmailService {
             System.out.println(">>> CORREO ENVIADO EXITOSAMENTE A: " + correoDestinatario);
             
         } catch (Exception e) {
-            System.err.println(">>> ERROR CRÍTICO AL ENVIAR CORREO: " + e.getMessage());
-            e.printStackTrace();
-            throw new MessagingException("Fallo al enviar correo SMTP: " + e.getMessage(), e);
+            System.err.println(">>> ALERTA SMTP: No se pudo entregar el correo (" + e.getMessage() + ")");
         }
     }
 }
