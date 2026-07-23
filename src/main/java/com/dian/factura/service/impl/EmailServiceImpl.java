@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,10 +23,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void enviarFacturaEmail(String correoDestinatario, String nombreCliente, File pdfAdjunto) throws MessagingException {
         try {
-            System.out.println("Enviando correo de factura a: " + correoDestinatario);
+            System.out.println(">>> INICIANDO ENVÍO DE CORREO SMTP");
+            System.out.println("Destinatario: " + correoDestinatario);
+            System.out.println("Remitente: " + senderEmail);
             
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -52,11 +52,12 @@ public class EmailServiceImpl implements EmailService {
             }
             
             mailSender.send(message);
-            System.out.println("Correo enviado exitosamente a: " + correoDestinatario);
+            System.out.println(">>> CORREO ENVIADO EXITOSAMENTE A: " + correoDestinatario);
             
         } catch (Exception e) {
-            System.err.println("Error al enviar correo electrónico: " + e.getMessage());
+            System.err.println(">>> ERROR CRÍTICO AL ENVIAR CORREO: " + e.getMessage());
             e.printStackTrace();
+            throw new MessagingException("Fallo al enviar correo SMTP: " + e.getMessage(), e);
         }
     }
 }
