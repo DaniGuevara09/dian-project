@@ -14,6 +14,7 @@ import java.io.File;
 
 @RestController
 @RequestMapping("/api/factura")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FacturaRestController {
 
     private final FacturaService facturaService;
@@ -24,6 +25,7 @@ public class FacturaRestController {
 
     @PostMapping
     public ResponseEntity<EnviarFacturaResponse> procesarFactura(@RequestBody EnviarFacturaRequest request) {
+        System.out.println(">>> PETICIÓN REST RECIBIDA EN /api/factura PARA: " + request.getCorreoCliente());
         EnviarFacturaResponse response = facturaService.procesarFactura(request);
         if ("500".equals(response.getCodigo())) {
             return ResponseEntity.status(500).body(response);
@@ -34,6 +36,7 @@ public class FacturaRestController {
     @GetMapping("/download")
     public ResponseEntity<Resource> descargarPdf(@RequestParam("path") String path) {
         try {
+            System.out.println(">>> PETICIÓN DESCARGA PDF RECIBIDA PARA: " + path);
             File file = new File(path);
             if (!file.exists()) {
                 return ResponseEntity.notFound().build();
