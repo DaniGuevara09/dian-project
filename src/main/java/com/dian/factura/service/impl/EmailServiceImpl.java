@@ -26,8 +26,9 @@ public class EmailServiceImpl implements EmailService {
     @Async
     public void enviarFacturaEmail(String correoDestinatario, String nombreCliente, File pdfAdjunto) {
         try {
-            System.out.println(">>> INICIANDO ENVÍO DE CORREO SMTP EN SEGUNDO PLANO...");
-            System.out.println("Destinatario: " + correoDestinatario);
+            System.out.println(">>> PASO 4: Hilo de correo en segundo plano iniciado.");
+            System.out.println(">>> Remitente configurado: " + senderEmail);
+            System.out.println(">>> Destinatario: " + correoDestinatario);
             
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -47,15 +48,18 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(cuerpoHtml, true);
             
             if (pdfAdjunto != null && pdfAdjunto.exists()) {
+                System.out.println(">>> PASO 5: Adjuntando PDF (" + pdfAdjunto.length() + " bytes)...");
                 FileSystemResource file = new FileSystemResource(pdfAdjunto);
                 helper.addAttachment(pdfAdjunto.getName(), file);
             }
             
+            System.out.println(">>> PASO 6: Enviando paquete a servidor SMTP de Gmail...");
             mailSender.send(message);
-            System.out.println(">>> CORREO ENVIADO EXITOSAMENTE A: " + correoDestinatario);
+            System.out.println(">>> ¡PASO 7 COMPLETO! CORREO ENVIADO EXITOSAMENTE A: " + correoDestinatario);
             
         } catch (Exception e) {
-            System.err.println(">>> ALERTA SMTP: No se pudo entregar el correo (" + e.getMessage() + ")");
+            System.err.println(">>> ERROR CRÍTICO EN ENVÍO DE CORREO SMTP: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

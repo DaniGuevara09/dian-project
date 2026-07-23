@@ -25,18 +25,20 @@ public class FacturaServiceImpl implements FacturaService {
         EnviarFacturaResponse response = new EnviarFacturaResponse();
         
         try {
-            // 1. Generar la factura en PDF
+            System.out.println(">>> PASO 1: Iniciando generación de PDF de factura...");
             File pdfFile = pdfService.generarFacturaPdf(request);
+            System.out.println(">>> PASO 2: PDF generado exitosamente en: " + pdfFile.getAbsolutePath());
             
-            // 2. Enviar el correo electrónico adjuntando la factura
+            System.out.println(">>> PASO 3: Solicitando envío de correo a EmailService para: " + request.getCorreoCliente());
             emailService.enviarFacturaEmail(request.getCorreoCliente(), request.getNombreCliente(), pdfFile);
             
-            // 3. Configurar respuesta exitosa
             response.setCodigo("200");
             response.setMensaje("Factura electrónica enviada y procesada exitosamente. Confirmación enviada a: " + request.getCorreoCliente());
             response.setPdfUrl(pdfFile.getAbsolutePath());
             
         } catch (Exception e) {
+            System.err.println(">>> ERROR EN PROCESAR FACTURA: " + e.getMessage());
+            e.printStackTrace();
             response.setCodigo("500");
             response.setMensaje("Error en la facturación electrónica: " + e.getMessage());
             response.setPdfUrl(null);
